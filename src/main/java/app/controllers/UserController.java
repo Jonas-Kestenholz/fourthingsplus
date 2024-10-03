@@ -16,8 +16,36 @@ public class UserController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
 
         app.post("login",ctx -> login(ctx, connectionPool));
-
+        app.get("logout", ctx -> logout(ctx));
+        app.get("createuser", ctx -> ctx.render("createuser.html"));
+        app.post("createuser", ctx -> createuser(ctx, connectionPool));
     }
+
+    private static void createuser(Context ctx, ConnectionPool connectionPool) {
+        String username = ctx.formParam("username");
+        String password1 = ctx.formParam("password1");
+        String password2 = ctx.formParam("password2");
+
+        if (password1.equals(password2)) {
+            try {
+                UserMapper.createuser(username, password1, connectionPool);
+                ctx.attribute("message", "Account created, with username:" + username + ". Please login!");
+                ctx.render("index.html");
+            } catch (DatabaseException e) {
+                ctx.attribute("message", "Your username already exists! Try again.");
+                ctx.render("createuser.html");
+            }
+        } else {
+            ctx.attribute("message", "Your passwords did not match! Try again.");
+            ctx.render("createuser.html");
+        }
+    }
+
+    private static void logout(Context ctx) {
+        ctx.req().getSession().invalidate();
+        ctx.redirect("/");
+    }
+
 
     public static void login(Context ctx, ConnectionPool connectionPool){
 
