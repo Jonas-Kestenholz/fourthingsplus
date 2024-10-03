@@ -16,7 +16,7 @@ public class ConnectionPool
     // TODO: Change default access credentials for MySql server as needed below:
 
     private static final String DEFAULT_USER = "postgres";
-    private static final String DEFAULT_PASSWORD = "LilleLuder";
+    private static final String DEFAULT_PASSWORD = "hej";
     private static final String DEFAULT_URL = "jdbc:postgresql://localhost/%s?currentSchema=public";
     private static final String DEFAULT_DB = "messageboard";
     public static ConnectionPool instance = null;

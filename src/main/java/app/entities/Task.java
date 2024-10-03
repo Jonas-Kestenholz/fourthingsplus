@@ -1,6 +1,7 @@
 package app.entities;
 
 public class Task {
+
     private int taskId;
     private String name;
     private boolean done;
@@ -13,12 +14,12 @@ public class Task {
         this.userId = userId;
     }
 
-    public int getTaskId() {
-        return taskId;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public int getTaskId() {
+        return taskId;
     }
 
     public boolean isDone() {
